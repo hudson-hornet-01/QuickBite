@@ -11,9 +11,6 @@ def index(request):
     }
     return render(request, 'Food/index.html', context)
 
-def item(request):
-    return HttpResponse("<h1>This is the item page.</h1>")
-
 def detail(request, item_id):
     item = Item.objects.get(pk=item_id)
     context = {
@@ -27,13 +24,15 @@ def update_item(request,id):
     
     if form.is_valid():
         form.save()
-        return redirect("food:index")
+        return redirect("Food:index")
     
-    return render(request, 'food/item-form.html',{})
+    return render(request, 'Food/item-form.html',{})
 
 def create_item(request):
+    if request.method=="POST":
+        print("Post request triggered")
     form = ItemForm()
     context = {
-        'form' = form
+        'form' : form,
     }
-    return redirect(request,'Food/item-form.html',context)
+    return render(request,'food/item-form.html',context)
