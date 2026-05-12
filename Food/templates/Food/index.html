@@ -1,34 +1,18 @@
 {% extends 'Food/base.html' %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no" />
-    <title>QuickBite - Food</title>
-  </head>
-  <body>
-    {% block body %}
-      {% for item in item_list %}
-        <div class="row">
-          <div class="col-md-3 offset-md-2">
-            <img class="card" height="150px" src="{{ item.item_image }}" alt="">
-          </div>
-          <div class="col-md-4">
-            <h3>{{ item.item_name }}</h3>
-            <h5>{{ item.item_desc }}</h5>
-            <h6>${{ item.item_price }}</h6>
-          </div>
-          <div class="col-md-2">
-            <a href="{% url 'Food:detail' item.id %}" class="btn btn-success">Details</a>
-          </div>
-        </div>
-      {% endfor %}
-    {% endblock %}
-    {% comment %}this is the old code{% endcomment %}
-    <ul>
-      <li>
-        <a href="">{{ item.id }} -- {{ item.item_name }}</a>
-      </li>
-    </ul>
-  </body>
-</html>
+{% block body %}
+  {% for item in item_list %}
+    <div class="m-10 flex w-1/2 mx-auto">
+      <div class="">
+        <img class="w-64 rounded-lg" src="{{ item.item_image }}">
+      </div>
+      <div class="mx-16">
+        <div class="font-bold">{{ item.item_name }}</div>
+        <div>{{ item.item_desc }}</div>
+        <div class="text-green-700 font-bold">${{ item.item_price }}</div>
+      </div>
+      <div class="">
+        <a href="{% url 'Food:detail' item.id %}" class="bg-red-500 text-white font-bold px-4 py-2 rounded-md">Details</a>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
