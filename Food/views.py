@@ -1,5 +1,4 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
 from .models import Item
 from .forms import ItemForm
 
@@ -11,28 +10,35 @@ def index(request):
     }
     return render(request, 'Food/index.html', context)
 
-def detail(request, item_id):
-    item = Item.objects.get(pk=item_id)
+def detail(request,id):
+    item = Item.objects.get(pk=id)
     context = {
         'item':item,
     }
     return render(request,'Food/detail.html',context)
 
+def create_item(request):
+    form = ItemForm(request.POST or None)
+    if request.method=="POST":
+        if form.is_valid():
+            form.save()
+            return redirect("Food:index")
+        
+    context = {
+        'form' : form,
+    }
+    return render(request,'food/item-form.html',context)
+
 def update_item(request,id):
     item = Item.objects.get(id=id)
-    form = ItemForm(request.POST or None,)
+    form = ItemForm(request.POST or None,instance=item)
     
     if form.is_valid():
         form.save()
         return redirect("Food:index")
     
-    return render(request, 'Food/item-form.html',{})
-
-def create_item(request):
-    if request.method=="POST":
-        print("Post request triggered")
-    form = ItemForm()
     context = {
-        'form' : form,
+        'form':form
     }
-    return render(request,'food/item-form.html',context)
+    
+    return render(request, 'Food/item-form.html',context)
