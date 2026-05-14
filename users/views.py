@@ -9,7 +9,7 @@ def register(request):
             form.save()
             firstname = form.cleaned_data.get('first_name')
             messages.success(request,f'Welcome {firstname}, your account has been successfully created')
-            return redirect('Food:index')
+            return redirect('users:login')
     context = {
         'form':form
     }
