@@ -1,14 +1,14 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from .forms import RegisterForm
 # Create your views here.
 def register(request):
-    form = UserCreationForm(request.POST or None)
+    form = RegisterForm(request.POST or None)
     if request.method=="POST":
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request,f'Welcome {username},your account has been successfully created')
+            firstname = form.cleaned_data.get('first_name')
+            messages.success(request,f'Welcome {firstname}, your account has been successfully created')
             return redirect('Food:index')
     context = {
         'form':form
