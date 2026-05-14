@@ -15,6 +15,11 @@
           <a href="#" class="">Contact</a>
           <a href="#" class="">Address</a>
           <a href="#" class="">About Us</a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'users:logout' %}">Logout</a>
+          {% else %}
+            <a href="{% url 'users:login' %}">Login</a>
+          {% endif %}
         </div>
       </div>
     </nav>
