@@ -2,15 +2,21 @@ from django.shortcuts import render,redirect
 from .models import Item
 from .forms import ItemForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic.list import ListView
 
 # Create your views here.
-@login_required
-def index(request):
-    item_list = Item.objects.all()
-    context = {
-        'item_list': item_list,
-    }
-    return render(request, 'Food/index.html', context)
+# @login_required
+# def index(request):
+#     item_list = Item.objects.all()
+#     context = {
+#         'item_list': item_list,
+#     }
+#     return render(request, 'Food/index.html', context)
+
+class IndexClassView(ListView):
+    model = Item
+    template_name = 'Food/index.html'
+    context_object_name = 'item_list'
 
 def detail(request,id):
     item = Item.objects.get(pk=id)
