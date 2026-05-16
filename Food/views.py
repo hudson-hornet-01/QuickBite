@@ -4,7 +4,8 @@ from .forms import ItemForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView,UpdateView
+from django.views.generic.edit import CreateView,UpdateView,DeleteView
+from django.urls import reverse_lazy
 
 # Create your views here.
 # @login_required
@@ -74,3 +75,7 @@ def delete_item(request,id):
         return redirect('Food:index')
     
     return render(request, 'Food/item-delete.html')
+
+class ItemDelete(DeleteView):
+    model = Item
+    success_url = reverse_lazy('Food:index')
